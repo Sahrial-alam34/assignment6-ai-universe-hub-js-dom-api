@@ -38,24 +38,27 @@ const displayCardDetails = (hubs,dataLimit) =>{
                 <img src=${image} class="card-img-top h-50" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Features</h5>
-                    <p class="card-text">1. ${features[0]}.</p>
-                    <p class="card-text">2. ${features[1]}.</p>
-                    <p class="card-text">3. ${features[2]}.</p>
+                    <p class="card-text">1. ${features[0]?features[0]:"No Data Found"}.</p>
+                    <p class="card-text">2. ${features[1]?features[1]:"No Data Found"}.</p>
+                    <p class="card-text">3. ${features[2]?features[2]:"No Data Found"}.</p>
                 </div>
-                <hr class="bg-black">
-                <div class="card-footer bg-white border-0 d-flex justify-content-between">
                 
-                    <div>  
-                        <h5 class="card-title">${name}</h5>
-                        <small class="text-muted">
-                        <i class="fa fa-calendar" aria-hidden="true"></i>
-                        ${published_in}</small>
+                <div class="card-footer bg-white border-0 ">
+                    <hr class="bg-black shadow-lg">
+                    <div class="d-flex justify-content-between">
+                        <div>  
+                            <h5 class="card-title">${name}</h5>
+                            <small class="text-muted">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            ${published_in}</small>
+                         </div>
+                        <div class="">
+                            <button type="button" onclick="displayItemDetails()" class="btn btn-outline-danger rounded-circle">
+                            <i class="fas fa-arrow-right pt-2 pl-5"  data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"></i> </button>
+                        </div>
                     </div>
-                    <div class="">
-                    <button type="button" class="btn btn-outline-danger rounded-circle">
-                    <i class="fas fa-arrow-right pt-2 pl-5"  data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"></i> </button>
-                    </div>
+                   
                     
                   
                 </div>
@@ -90,3 +93,9 @@ document.getElementById('btn-show-all').addEventListener('click',function(){
     toggleSpinner(true);
     loadData();
 })
+
+// displayItemDetails
+const displayItemDetails = () =>{
+    console.log('hi');
+    const modalTitle = document.getAnimations('itemDetailModal');
+}
