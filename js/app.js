@@ -59,15 +59,28 @@ const displayCardDetails = (hubs,dataLimit) =>{
             </div>`
     });
 
-   
+    //stop loader
+    toggleSpinner(false);
     
 }
 
-const processSearch = (dataLimit) =>{
-    //toggleSpinner(true);
-    
-    displayCardDetails(searchText, dataLimit);
 
+
+//toggle
+const toggleSpinner = isLoading => {
+    const loaderSection = document.getElementById('loader');
+    if(isLoading){
+        loaderSection.classList.remove('d-none')
+    }
+    else{
+        loaderSection.classList.add('d-none');
+    }
 }
 
 
+
+
+// // btn show 
+// document.getElementById('btn-show-all').addEventListener('click',function(){
+//    
+// })
