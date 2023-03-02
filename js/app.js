@@ -31,7 +31,7 @@ const displayCardDetails = (hubs,dataLimit) =>{
     }
     hubs.tools.forEach(hub => {
         
-        const {image,name,features,published_in} = hub;
+        const {image,name,features,published_in,id} = hub;
         cardContainer.innerHTML += ` 
             <div class="col">
                 <div class="card h-100 w-full h-96">
@@ -53,9 +53,9 @@ const displayCardDetails = (hubs,dataLimit) =>{
                             ${published_in}</small>
                          </div>
                         <div class="">
-                            <button type="button" onclick="displayItemDetails()" class="btn btn-outline-danger rounded-circle">
+                            <button type="button" onclick="loadItemDetails('${id}')" class="btn btn-outline-danger rounded-circle">
                             <i class="fas fa-arrow-right pt-2 pl-5"  data-bs-toggle="modal"
-                            data-bs-target="#exampleModal"></i> </button>
+                            data-bs-target="#itemDetailModal"></i> </button>
                         </div>
                     </div>
                    
@@ -94,8 +94,43 @@ document.getElementById('btn-show-all').addEventListener('click',function(){
     loadData();
 })
 
+//loadItemDetails
+const loadItemDetails = async id =>{
+    const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+        displayItemDetails(data.data)   
+    } catch (error) {
+        console.log(error);
+    }
+  
+}
+
 // displayItemDetails
-const displayItemDetails = () =>{
-    console.log('hi');
-    const modalTitle = document.getAnimations('itemDetailModal');
+const displayItemDetails = hub =>{
+    //console.log('hi');
+    console.log(hub);
+    // const modalTitle = document.getElementById('itemDetailModalLabel');
+    // modalTitle.innerText = hubs.tool_name;
+    const modalBody = document.getElementById('item-details');
+    const {image_link} = hub;
+    console.log(image_link);
+    modalBody.innerHTML = `
+    <div class="card border-0" style="max-width: 540px;">
+    <div class="row g-0">
+      <div class="col-md-6">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+         
+        </div>
+      </div>
+      <div class="col-md-6">
+        <img src=${image_link[0]} class="img-fluid rounded-start" alt="...">
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      </div>
+    </div>
+  </div>
+    `
 }
