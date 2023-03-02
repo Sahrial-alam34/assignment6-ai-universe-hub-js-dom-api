@@ -13,19 +13,23 @@ const loadData = async(dataLimit) =>{
 const displayCardDetails = (hubs,dataLimit) =>{
     
     const cardContainer = document.getElementById('card-container');
+    cardContainer.innerHTML = '';
+    
 
     //hubs = hubs.slice(0,3);
     console.log(hubs.tools.length);
      const showAll = document.getElementById('show-all');
     if(dataLimit && hubs.tools.length > 6){
         
-         hubs= hubs.tools.slice(0,6);
+         hubs.tools= hubs.tools.slice(0,6);
          showAll.classList.remove('d-none');
+         
     }
     else{
         showAll.classList.add('d-none');
+   
     }
-    hubs.forEach(hub => {
+    hubs.tools.forEach(hub => {
         
         const {image,name,features,published_in} = hub;
         cardContainer.innerHTML += ` 
@@ -77,10 +81,12 @@ const toggleSpinner = isLoading => {
     }
 }
 
+// 
 
 
 
-// // btn show 
-// document.getElementById('btn-show-all').addEventListener('click',function(){
-//    
-// })
+// btn show 
+document.getElementById('btn-show-all').addEventListener('click',function(){
+    toggleSpinner(true);
+    loadData();
+})
