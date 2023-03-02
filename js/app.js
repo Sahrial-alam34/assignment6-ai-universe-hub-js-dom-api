@@ -1,19 +1,31 @@
-const loadData = async() =>{
+const loadData = async(dataLimit) =>{
     const url=(`https://openapi.programming-hero.com/api/ai/tools`);
     try {
         const res = await fetch(url);
         const data = await res.json();
-        displayCardDetails(data.data);
+        displayCardDetails(data.data,dataLimit);
     } catch (error) {
         console.log(error);
     }
 }
 
 
-const displayCardDetails = (hubs) =>{
-    console.log(hubs.tools[0]);
+const displayCardDetails = (hubs,dataLimit) =>{
+    
     const cardContainer = document.getElementById('card-container');
-    hubs.tools.forEach(hub => {
+
+    //hubs = hubs.slice(0,3);
+    console.log(hubs.tools.length);
+     const showAll = document.getElementById('show-all');
+    if(dataLimit && hubs.tools.length > 6){
+        
+         hubs= hubs.tools.slice(0,6);
+         showAll.classList.remove('d-none');
+    }
+    else{
+        showAll.classList.add('d-none');
+    }
+    hubs.forEach(hub => {
         
         const {image,name,features,published_in} = hub;
         cardContainer.innerHTML += ` 
@@ -46,6 +58,16 @@ const displayCardDetails = (hubs) =>{
                 </div>
             </div>`
     });
+
+   
     
 }
+
+const processSearch = (dataLimit) =>{
+    //toggleSpinner(true);
+    
+    displayCardDetails(searchText, dataLimit);
+
+}
+
 
