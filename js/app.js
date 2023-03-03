@@ -1,28 +1,38 @@
-//let getFeatureData = [];
+let getDateData = [];
 const loadData = async(dataLimit) =>{
     const url=(`https://openapi.programming-hero.com/api/ai/tools`);
     try {
         const res = await fetch(url);
         const data = await res.json();
-        displayCardDetails(data.data,dataLimit);
+        getDateData = data.data;
+       // console.log(getDateData);
+        //console.log(dataLimit);
+        displayCardDetails(data.data.tools,dataLimit);
+        
     } catch (error) {
         console.log(error);
     }
 }
 
 
+
 const displayCardDetails = (hubs,dataLimit) =>{
-    
+  
     const cardContainer = document.getElementById('card-container');
     cardContainer.innerHTML = '';
     
    
     //hubs = hubs.slice(0,3);
-    //console.log(hubs.tools.length);
+    //console.log(hubs.tools);
+  
+    
+
+
      const showAll = document.getElementById('show-all');
-    if(dataLimit && hubs.tools.length > 6){
+    if(dataLimit && hubs.length > 6){
         
-         hubs.tools= hubs.tools.slice(0,6);
+         hubs.tools= hubs.slice(0,6);
+         hubs=hubs.tools;
          showAll.classList.remove('d-none');
          
     }
@@ -32,8 +42,21 @@ const displayCardDetails = (hubs,dataLimit) =>{
     }
     //getFeatureData = hubs.tools;
     //featureElements(getFeatureData);
-    hubs.tools.forEach(hub => {
-        
+    hubs.forEach(hub => {
+        //console.log(hubs.tools);
+        //console.log(hub.published_in);
+        //console.log(hub.id);
+        //console.log(hub)
+        //  let keys= [hub.id];
+        //  let value = [hub.published_in];
+        //  //console.log(keys);
+        //  //console.log(value);
+        //  getDateData[keys] = value;
+        //  //console.log(getDateData['01'])
+        //  //console.log(getDateData)
+        //  sortedByDate(getDateData);
+        // for(let i=0 ;i<)
+
         
         const {image,name,features,published_in,id} = hub;
         
@@ -77,26 +100,12 @@ const displayCardDetails = (hubs,dataLimit) =>{
 
     //stop loader
     toggleSpinner(false);
+   
     
 }
 
-//console.log(getFeatureData);
 
-//<p class="card-text">1. ${features[0]?features[0]:"No Data Found"}.</p>
-//<p class="card-text">2. ${features[1]?features[1]:"No Data Found"}.</p>
-//<p class="card-text">3. ${features[2]?features[2]:"No Data Found"}.</p>
-//<p class="card-text">4. ${features[3]?features[3]:"No Data Found"}.</p>
 
-// // display feature element
-// const featureElements = (hubs) =>{
-//     const getElements = document.getElementById('feature-element');
-//     console.log(hubs)
-//     hubs.forEach(hub =>{
-        
-        
-//     })
-    
-// }
 
 
 //toggle
@@ -201,4 +210,23 @@ const displayItemDetails = hub =>{
         
   </div>
     `
-}
+};
+
+
+
+
+//show data by sorted
+document.getElementById('btn-sort').addEventListener('click',function(){
+
+    getDate=getDateData.tools
+   
+    var sortedArray= getDate.sort((a,b) => Date.parse(new Date(a.published_in)) - Date.parse(new Date(b.published_in)));
+    console.log(sortedArray);
+    dataLimit = sortedArray.length
+   
+    console.log(dataLimit);
+
+   
+    displayCardDetails(sortedArray,dataLimit);
+
+})
