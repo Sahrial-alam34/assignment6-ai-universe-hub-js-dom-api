@@ -180,9 +180,20 @@ const displayItemDetails = hub =>{
             </div>
      
             <div class="card-body shadow-lg rounded col-md-6">
-                <img src=${image_link[0]} class="img-fluid rounded-start" alt="...">
-                <p class="card-text mt-2">${input_output_examples[0].input}</p>
-                <p class="card-text "style="font-size:12px;">${input_output_examples[0].output}</p>
+                
+                        <div class="bg-danger" style="top:0px;left:0px;position:relative">
+                            <img src=${image_link[0]} class="img-fluid rounded-start" alt="...">
+                            <div class="" style="top:0px;right:00px;position:absolute">
+                            <p id="btn-show-all" type="" class="btn btn-danger" style=" font-size:8px;">Show More</p>
+                            </div>
+                        </div>
+                        
+                
+                        <div class="">
+                        <p class="card-text mt-2">${input_output_examples[0].input}</p>
+                        <p class="card-text "style="font-size:12px;">${input_output_examples[0].output}</p>
+                        </div>
+               
             </div>
         
   </div>
