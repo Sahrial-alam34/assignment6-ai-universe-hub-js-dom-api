@@ -196,13 +196,13 @@ const displayItemDetails = hub =>{
                 <h5 class="card-title">${description.slice(0,20)}...</h5>
                 <div class="card border-0 d-flex flex-md-row gap-2">
                     <div class="col-md-3 shadow-lg rounded">
-                    <p class="text-center mt-2" style="color:green;font-size:12px;">${pricing[0].price?pricing[0].price.slice(0,4):'Free of Cost/'}<br>${pricing[0].price?pricing[0].price.slice(4,10):''}<br><span>${pricing[0].plan?pricing[0].plan:'Basic'}</span></p>
+                    <p class="text-center mt-2" style="color:green;font-size:12px;">${pricing[0].price !=0?pricing[0].price.slice(0,4):'Free of Cost/'}<br>${pricing[0].price?pricing[0].price.slice(4,10):''}<br><span>${pricing[0].plan?pricing[0].plan:'Basic'}</span></p>
                     </div>
                     <div  class="col-md-4 shadow-lg rounded">
-                    <p class="text-center mt-2" style="color:orange;font-size:12px;">${pricing[1].price?pricing[1].price.slice(0,4):'Free Of Cost/'}<br>${pricing[1].price?pricing[1].price.slice(4,10):''}<br><span>${pricing[1].plan?pricing[1].plan:'Pro'}</span></p>
+                    <p class="text-center mt-2" style="color:orange;font-size:12px;">${pricing[1].price != 0?pricing[1].price.slice(0,4):'Free Of Cost/'}<br>${pricing[1].price?pricing[1].price.slice(4,10):''}<br><span>${pricing[1].plan?pricing[1].plan:'Pro'}</span></p>
                     </div>
                     <div  class="col-md-4 shadow-lg rounded">
-                    <p class="text-center mt-2" style="color:red;font-size:12px;">${pricing[2].price?pricing[2].price.slice(0,7):'Free of Cost/'}<br>${pricing[2].price?pricing[2].price.slice(7,10):''}<br><span>${pricing[2].plan?pricing[2].plan:'Enterprise'}</span></p>
+                    <p class="text-center mt-2" style="color:red;font-size:12px;">${pricing[2].price !=0?pricing[2].price.slice(0,7):'Free of Cost/'}<br>${pricing[2].price?pricing[2].price.slice(7,10):''}<br><span>${pricing[2].plan?pricing[2].plan:'Enterprise'}</span></p>
                     </div>
                 </div>
                 <div class="d-flex flex-md-row">
