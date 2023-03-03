@@ -136,13 +136,16 @@ const loadItemDetails = async id =>{
 // displayItemDetails
 const displayItemDetails = hub =>{
     //console.log('hi');
-    console.log(hub.input_output_examples[0].output);
+    console.log(hub.accuracy);
     // const modalTitle = document.getElementById('itemDetailModalLabel');
     // modalTitle.innerText = hubs.tool_name;
     const modalBody = document.getElementById('item-details');
-    const {image_link,description,pricing,features,integrations,input_output_examples} = hub;
+    const {image_link,description,pricing,features,integrations,input_output_examples,accuracy} = hub;
     //console.log(Object.keys(features));
     //console.log(Object.values(features)[0].feature_name);
+    const acc = accuracy.score;
+    const percent = (acc*100);
+    //console.log(per);
     modalBody.innerHTML = `
     <div class="card border-0 d-flex flex-md-row gap-2" style="max-width: 740px; ">
     
@@ -181,10 +184,10 @@ const displayItemDetails = hub =>{
      
             <div class="card-body shadow-lg rounded col-md-6">
                 
-                        <div class="bg-danger" style="top:0px;left:0px;position:relative">
+                        <div class="" style="top:0px;left:0px;position:relative">
                             <img src=${image_link[0]} class="img-fluid rounded-start" alt="...">
-                            <div class="" style="top:0px;right:00px;position:absolute">
-                            <p id="btn-show-all" type="" class="btn btn-danger" style=" font-size:8px;">Show More</p>
+                            <div class="" style="top:0px;right:0px;position:absolute">
+                            <p id="btn-show-all" type="" class="btn btn-danger" style=" font-size:8px;">${percent}% Accuracy</p>
                             </div>
                         </div>
                         
