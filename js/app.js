@@ -136,19 +136,20 @@ const loadItemDetails = async id =>{
 // displayItemDetails
 const displayItemDetails = hub =>{
     //console.log('hi');
-    console.log(hub.pricing);
+    console.log(hub.input_output_examples[0].output);
     // const modalTitle = document.getElementById('itemDetailModalLabel');
     // modalTitle.innerText = hubs.tool_name;
     const modalBody = document.getElementById('item-details');
-    const {image_link,description,pricing} = hub;
-    //console.log(image_link);
+    const {image_link,description,pricing,features,integrations,input_output_examples} = hub;
+    //console.log(Object.keys(features));
+    //console.log(Object.values(features)[0].feature_name);
     modalBody.innerHTML = `
-    <div class="card border-0 d-flex flex-row gap-2" style="max-width: 740px; ">
+    <div class="card border-0 d-flex flex-md-row gap-2" style="max-width: 740px; ">
     
       
             <div class="card-body shadow-lg border border-danger rounded col-md-6" style="background-color:#fad1d0">
                 <h5 class="card-title">${description.slice(0,20)}...</h5>
-                <div class="card border-0 d-flex flex-row gap-2">
+                <div class="card border-0 d-flex flex-md-row gap-2">
                     <div class="col-md-3 shadow-lg rounded">
                     <p class="text-center mt-2" style="color:green;font-size:12px;">${pricing[0].price?pricing[0].price.slice(0,4):'Not Found'}<br>${pricing[0].price?pricing[0].price.slice(4,10):''}<br><span>${pricing[0].plan?pricing[0].plan:'Not found'}</span></p>
                     </div>
@@ -159,13 +160,29 @@ const displayItemDetails = hub =>{
                     <p class="text-center mt-2" style="color:red;font-size:12px;">${pricing[2].price?pricing[2].price.slice(0,7):'Not Found'}<br>${pricing[2].price?pricing[2].price.slice(7,10):''}<br><span>${pricing[2].plan?pricing[2].plan:'Not found'}</span></p>
                     </div>
                 </div>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <div class="d-flex flex-md-row">
+                    <div class="col-md-7">
+                        <h5 class="card-title mt-3" style="font-size:14px;">Features</h5>
+                        <p class="card-text" style="font-size:12px;">* ${Object.values(features)[0].feature_name?Object.values(features)[0].feature_name:"No Data Found"}.</p>
+                        <p class="card-text" style="font-size:12px;">* ${Object.values(features)[1].feature_name?Object.values(features)[1].feature_name:"No Data Found"}.</p>
+                        <p class="card-text" style="font-size:12px;">* ${Object.values(features)[2].feature_name?Object.values(features)[2].feature_name:"No Data Found"}.</p>
+                    </div>
+                    <div class="col-md-5">
+                        <h5 class="card-title mt-3" style="font-size:14px;">Integrations</h5>
+                        <p class="card-text" style="font-size:12px;">* ${integrations[0]?integrations[0]:"No Data Found"}.</p>
+                        <p class="card-text" style="font-size:12px;">* ${integrations[1]?integrations[1]:"No Data Found"}.</p>
+                        <p class="card-text" style="font-size:12px;">* ${integrations[2]?integrations[2]:"No Data Found"}.</p>
+                    </div>
+
+                   
+                </div>
             
             </div>
      
             <div class="card-body shadow-lg rounded col-md-6">
                 <img src=${image_link[0]} class="img-fluid rounded-start" alt="...">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text mt-2">${input_output_examples[0].input}</p>
+                <p class="card-text "style="font-size:12px;">${input_output_examples[0].output}</p>
             </div>
         
   </div>
