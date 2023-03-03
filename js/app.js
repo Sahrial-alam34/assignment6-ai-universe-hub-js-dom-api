@@ -1,17 +1,41 @@
 let getDateData = [];
-const loadData = async(dataLimit) =>{
+const loadData = async(isTrue,dataLimit) =>{
     const url=(`https://openapi.programming-hero.com/api/ai/tools`);
-    try {
-        const res = await fetch(url);
-        const data = await res.json();
-        getDateData = data.data;
-       // console.log(getDateData);
-        //console.log(dataLimit);
-        displayCardDetails(data.data.tools,dataLimit);
-        
-    } catch (error) {
-        console.log(error);
+    if(isTrue){
+        try {
+            const res = await fetch(url);
+            const data = await res.json();
+            getDateData = data.data;
+           // console.log('hi');
+           // console.log(getDateData);
+            //console.log(dataLimit);
+            console.log(data.data);
+            //displayCardDetails(data.data.tools,dataLimit);
+            
+            sortedByDate1(data.data);
+
+            
+        } catch (error) {
+            console.log(error);
+        }
     }
+        
+    
+    else{
+        try {
+            
+            const res = await fetch(url);
+            const data = await res.json();
+            getDateData = data.data;
+           // console.log(getDateData);
+            //console.log(dataLimit);
+            displayCardDetails(data.data.tools,dataLimit);
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 }
 
 
@@ -29,33 +53,24 @@ const displayCardDetails = (hubs,dataLimit) =>{
 
 
      const showAll = document.getElementById('show-all');
-    if(dataLimit && hubs.length > 6){
+    if(dataLimit > 6 && hubs.length > 6){
         
-         hubs.tools= hubs.slice(0,6);
-         hubs=hubs.tools;
-         showAll.classList.remove('d-none');
+        //  hubs.tools= hubs.slice(0,6);
+        //  hubs=hubs.tools;
+        //  showAll.classList.remove('d-none');
+        showAll.classList.add('d-none');
          
     }
     else{
-        showAll.classList.add('d-none');
+        //showAll.classList.add('d-none');
+         hubs.tools= hubs.slice(0,6);
+         hubs=hubs.tools;
+         showAll.classList.remove('d-none');
    
     }
     //getFeatureData = hubs.tools;
     //featureElements(getFeatureData);
     hubs.forEach(hub => {
-        //console.log(hubs.tools);
-        //console.log(hub.published_in);
-        //console.log(hub.id);
-        //console.log(hub)
-        //  let keys= [hub.id];
-        //  let value = [hub.published_in];
-        //  //console.log(keys);
-        //  //console.log(value);
-        //  getDateData[keys] = value;
-        //  //console.log(getDateData['01'])
-        //  //console.log(getDateData)
-        //  sortedByDate(getDateData);
-        // for(let i=0 ;i<)
 
         
         const {image,name,features,published_in,id} = hub;
@@ -126,7 +141,11 @@ const toggleSpinner = isLoading => {
 // btn show 
 document.getElementById('btn-show-all').addEventListener('click',function(){
     toggleSpinner(true);
-    loadData();
+    //sortedByDate(true);
+    if(sortedByDate()===false){
+        loadData(false);
+    }
+    loadData(true);
 })
 
 //loadItemDetails
@@ -153,7 +172,21 @@ const displayItemDetails = hub =>{
     //console.log(Object.keys(features));
     //console.log(Object.values(features)[0].feature_name);
     const acc = accuracy.score;
-    const percent = (acc*100);
+    console.log(acc);
+    let percent;
+    percent = (acc*100);
+    console.log(percent);
+    // if(acc== null)
+    // {
+      
+      
+    // }
+    // else{
+    //      percent = (acc*100);
+    // }
+    
+    
+    
     //console.log(per);
     modalBody.innerHTML = `
     <div class="card border-0 d-flex flex-md-row gap-2" style="max-width: 740px; ">
@@ -163,13 +196,13 @@ const displayItemDetails = hub =>{
                 <h5 class="card-title">${description.slice(0,20)}...</h5>
                 <div class="card border-0 d-flex flex-md-row gap-2">
                     <div class="col-md-3 shadow-lg rounded">
-                    <p class="text-center mt-2" style="color:green;font-size:12px;">${pricing[0].price?pricing[0].price.slice(0,4):'Not Found'}<br>${pricing[0].price?pricing[0].price.slice(4,10):''}<br><span>${pricing[0].plan?pricing[0].plan:'Not found'}</span></p>
+                    <p class="text-center mt-2" style="color:green;font-size:12px;">${pricing[0].price?pricing[0].price.slice(0,4):'Free of Cost/'}<br>${pricing[0].price?pricing[0].price.slice(4,10):''}<br><span>${pricing[0].plan?pricing[0].plan:'Basic'}</span></p>
                     </div>
                     <div  class="col-md-4 shadow-lg rounded">
-                    <p class="text-center mt-2" style="color:orange;font-size:12px;">${pricing[1].price?pricing[1].price.slice(0,4):'Not Found'}<br>${pricing[1].price?pricing[1].price.slice(4,10):''}<br><span>${pricing[1].plan?pricing[1].plan:'Not found'}</span></p>
+                    <p class="text-center mt-2" style="color:orange;font-size:12px;">${pricing[1].price?pricing[1].price.slice(0,4):'Free Of Cost/'}<br>${pricing[1].price?pricing[1].price.slice(4,10):''}<br><span>${pricing[1].plan?pricing[1].plan:'Pro'}</span></p>
                     </div>
                     <div  class="col-md-4 shadow-lg rounded">
-                    <p class="text-center mt-2" style="color:red;font-size:12px;">${pricing[2].price?pricing[2].price.slice(0,7):'Not Found'}<br>${pricing[2].price?pricing[2].price.slice(7,10):''}<br><span>${pricing[2].plan?pricing[2].plan:'Not found'}</span></p>
+                    <p class="text-center mt-2" style="color:red;font-size:12px;">${pricing[2].price?pricing[2].price.slice(0,7):'Free of Cost/'}<br>${pricing[2].price?pricing[2].price.slice(7,10):''}<br><span>${pricing[2].plan?pricing[2].plan:'Enterprise'}</span></p>
                     </div>
                 </div>
                 <div class="d-flex flex-md-row">
@@ -196,14 +229,14 @@ const displayItemDetails = hub =>{
                         <div class="" style="top:0px;left:0px;position:relative">
                             <img src=${image_link[0]} class="img-fluid rounded-start" alt="...">
                             <div class="" style="top:0px;right:0px;position:absolute">
-                            <p id="btn-show-all" type="" class="btn btn-danger" style=" font-size:8px;">${percent}% Accuracy</p>
+                            <p id="percentage-btn" type="" class="btn btn-danger" style=" font-size:8px;">${percent !=0 ? percent: "No Data"}% Accuracy</p>
                             </div>
                         </div>
                         
                 
                         <div class="">
                         <p class="card-text mt-2">${input_output_examples[0].input}</p>
-                        <p class="card-text "style="font-size:12px;">${input_output_examples[0].output}</p>
+                        <p class="card-text "style="font-size:12px;">${input_output_examples[0].output?input_output_examples[0].output:"No! Not Yet! Take a break!!!"}</p>
                         </div>
                
             </div>
@@ -216,8 +249,9 @@ const displayItemDetails = hub =>{
 
 
 //show data by sorted
-document.getElementById('btn-sort').addEventListener('click',function(){
-
+const sortedByDate =() =>{
+    console.log(getDateData);
+    console.log('abc');
     getDate=getDateData.tools
    
     var sortedArray= getDate.sort((a,b) => Date.parse(new Date(a.published_in)) - Date.parse(new Date(b.published_in)));
@@ -227,6 +261,21 @@ document.getElementById('btn-sort').addEventListener('click',function(){
     console.log(dataLimit);
 
    
-    displayCardDetails(sortedArray,dataLimit);
+    displayCardDetails(sortedArray,dataLimit=6);
+    
+    
+} 
+const sortedByDate1 =(data) =>{
+    console.log(data);
+    console.log('efg');
+    getDate=data.tools
+   
+    var sortedArray= getDate.sort((a,b) => Date.parse(new Date(a.published_in)) - Date.parse(new Date(b.published_in)));
+    console.log(sortedArray);
+    dataLimit = sortedArray.length
+   
+    console.log(dataLimit);
 
-})
+   
+    displayCardDetails(sortedArray,dataLimit);
+} 

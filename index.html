@@ -12,11 +12,11 @@
   <script src="https://kit.fontawesome.com/e6f24d98eb.js" crossorigin="anonymous"></script>
 </head>
 
-<body class="" onload="loadData(6),toggleSpinner(true)">
+<body class="" onload="loadData(false,6),toggleSpinner(true)">
   <!-- header -->
   <header class="container text-center ">
     <h1 class=" pt-5">AI Universe Hub</h1>
-    <button type="button" id="btn-sort" class="btn btn-danger pt-2 mt-2">Sort By Date</button>
+    <button type="button" onclick="sortedByDate() " id="btn-sort" class="btn btn-danger pt-2 mt-2">Sort By Date</button>
   
     <!-- <select name="date" id="sort-by-date" class="btn btn-danger pt-2 mt-2">
       <option  value="default">Sort By Date</option>
